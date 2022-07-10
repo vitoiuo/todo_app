@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="task-list">
+    <button><a href="{% url 'new-task' %}"><i class="fas fa-plus"></i> Add task</a></button>
+    <span>Filtrar por:</span>
+    <select name="filter" id="filter">
+        <option value="">Escolha uma opção</option>
+        <option value="done">Tarefas concluídas</option>
+        <option value="ongoing">Tarefas a serem realizadas</option>
+    </select>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if messa.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% for task in tasks %}
+
+    {% if task.done == 'ongoing' %}
+    <div class="task">
+        {% else %}
+        <div class="task done" class="task done">
+            {% endif %}
+            <h3><a href="{% url 'task-view' task.id %}">{{ task.title }}</a></h3>
+            <section class="icons">
+                <a href="{% url 'edit-task' task.id %}"><i class="fas fa-edit"></i></a>
+                <a href="{% url 'delete-task' task.id %}"><i class="fas fa-trash"></i></a>
+                <a href="{% url 'change-status' task.id %}"><i class="fas fa-check"></i></a>
+            </section>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    {% endblock %}

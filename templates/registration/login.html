@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="hidden" name='next' value="{{ next }}">
+    {{ form|crispy }}
+    <button type="submit">Entrar</button>
+</form>
+<p>Quer criar uam conta? <a href="/accounts/register">Clique aqui!</a></p>
+{% endblock %}
